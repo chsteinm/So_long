@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_utoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chrstein <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/16 03:46:35 by chrstein          #+#    #+#             */
-/*   Updated: 2024/02/16 03:46:51 by chrstein         ###   ########.fr       */
+/*   Created: 2024/02/15 20:59:23 by chrstein          #+#    #+#             */
+/*   Updated: 2024/02/15 21:20:57 by chrstein         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "libft.h"
 
-void	free_all(t_data *data)
+static void	rec(unsigned int nb, char *ptr, int len)
 {
-	free(data->map.one_line_map);
-	ft_free_strings(data->map.map);
+	if (nb > 9)
+		rec(nb / 10, ptr, len - 1);
+	ptr[len - 1] = nb % 10 + 48;
 }
 
-void	set_data(t_data *data)
+char	*ft_utoa(unsigned int n)
 {
-	data->map.map = NULL;
-	data->map.one_line_map = NULL;
-}
+	unsigned int	nb;
+	char			str[12];
+	char			*ptr;
+	int				len;
 
-int	main(int argc, char **argv)
-{
-	t_data	data;
-
-	set_data(&data);
-	if (argc != 2 || !parse(&data.map, argv[1]))
-		return (free_all(&data), 1);
-	ft_printstrs(data.map.map);
-	free_all(&data);
-	return (0);
+	ft_bzero(str, 12);
+	ptr = str;
+	nb = n;
+	len = (n == 0);
+	while (n && ++len)
+		n /= 10;
+	rec(nb, ptr, len);
+	return (ft_strdup(str));
 }

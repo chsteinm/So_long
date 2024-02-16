@@ -19,7 +19,27 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
+# include <fcntl.h>
+# include <stdio.h>
+# include <string.h>
 
+typedef struct s_map
+{
+	size_t				x;
+	size_t				y;
+	size_t				nb_collect;
+	char				*one_line_map;
+	char				**map;
+	size_t				P_x;
+	size_t				P_y;
+}					t_map;
 
+typedef struct s_data
+{
+	t_map	map;
+}					t_data;
+
+int	parse(t_map *map, char *path);
+int	check_win(t_map cpy);
 
 #endif
