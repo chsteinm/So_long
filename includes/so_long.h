@@ -27,7 +27,9 @@ typedef struct s_map
 {
 	size_t				x;
 	size_t				y;
-	size_t				nb_collect;
+	int					nb_collect;
+	int					exit_access;
+	int					fd;
 	char				*one_line_map;
 	char				**map;
 	size_t				P_x;
@@ -39,7 +41,7 @@ typedef struct s_data
 	t_map	map;
 }					t_data;
 
-int	parse(t_map *map, char *path);
+int	parse(t_map *map);
 int	check_win(t_map cpy);
 
 #endif

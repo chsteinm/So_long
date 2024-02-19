@@ -12,6 +12,8 @@
 
 #include "../includes/so_long.h"
 
+int	check_nbrs(t_map *map);
+
 int	check_rectangle(t_map *map)
 {
 	int	i;
@@ -25,20 +27,20 @@ int	check_rectangle(t_map *map)
 	i = -1;
 	while (map->map[0][++i])
 		if (map->map[0][i] != '1')
-			return (ft_printf("Map not surrounded by walls\n", 0));
+			return (ft_printf("Map not surrounded by walls\n"), 0);
 	i = -1;
 	while (map->map[0][++i])
 		if (map->map[map->y][i] != '1')
-			return (ft_printf("Map not surrounded by walls\n", 0));
+			return (ft_printf("Map not surrounded by walls\n"), 0);
 	i = -1;
 	while (map->map[++i])
 		if (map->map[i][0] != '1')
-			return (ft_printf("Map not surrounded by walls\n", 0));
+			return (ft_printf("Map not surrounded by walls\n"), 0);
 	i = -1;
 	while (map->map[++i])
 		if (map->map[i][map->x] != '1')
-			return (ft_printf("Map not surrounded by walls\n", 0));
-	return (1);
+			return (ft_printf("Map not surrounded by walls\n"), 0);
+	return (check_nbrs(map));
 }
 
 int	check_valid_char(char c)
@@ -77,7 +79,7 @@ int	check_nbrs(t_map *map)
 	}
 	if (!(start == 1 && exit == 1 && map->nb_collect))
 		return (ft_printf("Invalid number of E, P or C\n"), 0);
-	return (1);
+	return (check_win(*map));
 }
 
 void	fill_P_pos(t_map *map)
@@ -92,31 +94,29 @@ void	fill_P_pos(t_map *map)
 	}
 }
 
-int	parse(t_map *map, char *path)
+int	parse(t_map *map)
 {
-	int		fd;
 	char	*tmp_ptr;
 	char	*next_line;
 
-	fd = open(path, O_RDONLY);
-	if (fd == -1)
-		return (ft_printf("%s: ", path), perror(""), 0);
-	next_line = get_next_line(fd);
+	next_line = get_next_line(map->fd);
 	if (!next_line || !*next_line)
 		return (free(next_line), ft_printf("Error\n"), 0);
 	map->one_line_map = next_line;
 	while (1)
 	{
 		tmp_ptr = map->one_line_map;
-		next_line = get_next_line(fd);
+		next_line = get_next_line(map->fd);
 		if (!next_line)
 			break ;
 		map->one_line_map = ft_strjoin(tmp_ptr, next_line);
 		free(tmp_ptr);
 		free(next_line);
 	}
-	close(fd);
+	close(map->fd);
 	map->map = ft_split(map->one_line_map, '\n');
 	fill_P_pos(map);
-	return (check_rectangle(map) && check_nbrs(map) && check_win(*map));
+	if (!check_rectangle(map))
+		return (0);
+	return (1);
 }

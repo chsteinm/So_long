@@ -1,10 +1,28 @@
 #include "../includes/so_long.h"
 
-int	rec_check(t_map *cpy, int y, int x, int exit_access)
+int	rec_check(t_map *cpy, int y, int x)
 {
-	if (cpy->map[y][x])
-	if (!cpy->nb_collect && exit_access)
+	if (cpy->map[y][x] == 'C')
+		cpy->nb_collect--;
+	else if (cpy->map[y][x] == 'E')
+		cpy->exit_access = 1;
+	else if (cpy->map[y][x] == '1' || cpy->map[y][x] == '2')
+		return (0);
+	if (!cpy->nb_collect && cpy->exit_access)
 		return (1);
+	if (cpy->map[y][x] == '0' || cpy->map[y][x] == 'P' || \
+	cpy->map[y][x] == 'C' || cpy->map[y][x] == 'E')
+		cpy->map[y][x] = '2';
+	if (rec_check(cpy, y, x - 1))
+		return (1);
+	if (rec_check(cpy, y + 1, x))
+		return (1);
+	if (rec_check(cpy, y, x + 1))
+		return (1);
+	if (rec_check(cpy, y - 1, x))
+		return (1);
+	else
+		return (0);
 }
 
 int	check_win(t_map cpy)
@@ -12,8 +30,10 @@ int	check_win(t_map cpy)
 	int	bool;
 
 	cpy.map = ft_split(cpy.one_line_map, '\n');
-	bool = rec_check(&cpy, cpy.P_y, cpy.P_x , 0);
-
+	ft_printf("y = %d, x = %d\n", cpy.P_y, cpy.P_x);
+	bool = rec_check(&cpy, cpy.P_y, cpy.P_x);
 	ft_free_strings(cpy.map);
+	if (!bool)
+		return (ft_printf("Map not winnable\n"), 0);
 	return (1);
 }
