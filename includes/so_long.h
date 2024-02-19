@@ -15,6 +15,7 @@
 
 # include "./libft/libft.h"
 # include "get_next_line.h"
+# include "../minilibx-linux/mlx.h"
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -22,6 +23,13 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <string.h>
+
+typedef struct s_pic
+{
+	void	*wall;
+	int		img_width;
+	int		img_height;
+}					t_pic;
 
 typedef struct s_map
 {
@@ -39,6 +47,9 @@ typedef struct s_map
 typedef struct s_data
 {
 	t_map	map;
+	void	*mlx;
+	void	*mlx_win;
+	t_pic	pic;
 }					t_data;
 
 int	parse(t_map *map);

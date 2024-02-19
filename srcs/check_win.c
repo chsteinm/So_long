@@ -30,7 +30,6 @@ int	check_win(t_map cpy)
 	int	bool;
 
 	cpy.map = ft_split(cpy.one_line_map, '\n');
-	ft_printf("y = %d, x = %d\n", cpy.P_y, cpy.P_x);
 	bool = rec_check(&cpy, cpy.P_y, cpy.P_x);
 	ft_free_strings(cpy.map);
 	if (!bool)

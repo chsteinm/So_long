@@ -2,6 +2,7 @@ NAME = so_long
 NAME_BONUS = bonus
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+MLXFLAGS = -L ./minilibx-linux -lmlx -lXext -lX11
 PATH_SRCS = ./srcs/
 SRCS = main.c parse.c get_next_line.c check_win.c
 OBJ = $(addprefix $(BUILD_DIR)/,$(SRCS:.c=.o))
@@ -13,7 +14,7 @@ LIBFT = ./includes/libft/libft.a
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $@
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLXFLAGS) -o $@
 	@echo "\ncompile done!\n"
 
 bonus: all $(NAME_BONUS)
