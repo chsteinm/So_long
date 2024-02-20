@@ -27,14 +27,19 @@
 typedef struct s_pic
 {
 	void	*wall;
+	void	*floor1;
+	void	*floor2;
+	void	*player;
+	void	*collect;
+	void	*exit;
 	int		img_width;
 	int		img_height;
 }					t_pic;
 
 typedef struct s_map
 {
-	size_t				x;
-	size_t				y;
+	int					x;
+	int					y;
 	int					nb_collect;
 	int					exit_access;
 	int					fd;
@@ -54,5 +59,6 @@ typedef struct s_data
 
 int	parse(t_map *map);
 int	check_win(t_map cpy);
+void	draw_map(void *mlx_ptr, void *win_ptr, t_data *data);
 
 #endif

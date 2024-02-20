@@ -21,7 +21,7 @@ int	check_rectangle(t_map *map)
 	map->x = ft_strlen(map->map[0]) - 1;
 	map->y = 0;
 	while (map->map[++map->y])
-		if (ft_strlen(map->map[map->y]) - 1 != map->x)
+		if (ft_strlen(map->map[map->y]) - 1 != (size_t)map->x)
 			return (ft_printf("Map not rectangular\n"), 0);
 	map->y--;
 	i = -1;
