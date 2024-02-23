@@ -16,6 +16,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLXFLAGS) -o $@
 	@echo "\ncompile done!\n"
+	@echo 'Tape for example "./so_long Ressources/Maps/\n"
 
 bonus: all $(NAME_BONUS)
 
@@ -33,7 +34,7 @@ $(LIBFT): FORCE
 	@make --no-print-directory -C includes/libft bonus
 
 norm :
-	norminette ./srcs
+	norminette ./srcs ./includes
 
 FORCE :
 

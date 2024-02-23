@@ -80,14 +80,14 @@ int	check_rectangle(t_map *map)
 	return (check_nbrs(map));
 }
 
-void	fill_P_pos(t_map *map)
+void	fill_p_pos(t_map *map)
 {
-	map->P_y = 0;
-	while (map->map[++map->P_y])
+	map->p_y = 0;
+	while (map->map[++map->p_y])
 	{
-		map->P_x = 0;
-		while (map->map[map->P_y][++map->P_x])
-			if (map->map[map->P_y][map->P_x] == 'P')
+		map->p_x = 0;
+		while (map->map[map->p_y][++map->p_x])
+			if (map->map[map->p_y][map->p_x] == 'P')
 				return ;
 	}
 }
@@ -114,7 +114,7 @@ int	parse(t_map *map)
 	if (ft_strnstr(map->one_line_map, "\n\n", ft_strlen(map->one_line_map)))
 		return (ft_printf("Error\nToo much \\n\n"), 0);
 	map->map = ft_split(map->one_line_map, '\n');
-	fill_P_pos(map);
+	fill_p_pos(map);
 	if (!check_rectangle(map))
 		return (0);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: chrstein <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 03:46:35 by chrstein          #+#    #+#             */
-/*   Updated: 2024/02/16 03:46:51 by chrstein         ###   ########.fr       */
+/*   Updated: 2024/02/23 05:48:38 by chrstein         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	free_all(t_data *data)
 	if (data->pic.collect1)
 		mlx_destroy_image(data->mlx, data->pic.collect1);
 	if (data->pic.collect2)
-	mlx_destroy_image(data->mlx, data->pic.collect2);
+		mlx_destroy_image(data->mlx, data->pic.collect2);
 	if (data->mlx_win)
 		mlx_destroy_window(data->mlx, data->mlx_win);
 	if (data->mlx)
@@ -66,13 +66,13 @@ int	key_press(int key_code, t_data *data)
 	if (key_code == ESC)
 		return (destroy(data));
 	else if (key_code == A)
-		move(&data->map, data, data->map.P_x - 1, data->map.P_y);
+		move(&data->map, data, data->map.p_x - 1, data->map.p_y);
 	else if (key_code == D)
-		move(&data->map, data, data->map.P_x + 1, data->map.P_y);
+		move(&data->map, data, data->map.p_x + 1, data->map.p_y);
 	else if (key_code == S)
-		move(&data->map, data, data->map.P_x, data->map.P_y + 1);
+		move(&data->map, data, data->map.p_x, data->map.p_y + 1);
 	else if (key_code == W)
-		move(&data->map, data, data->map.P_x, data->map.P_y - 1);
+		move(&data->map, data, data->map.p_x, data->map.p_y - 1);
 	return (1);
 }
 
@@ -88,14 +88,14 @@ int	main(int argc, char **argv)
 	if (!data.mlx)
 		return (free_all(&data), 1);
 	data.mlx_win = mlx_new_window(data.mlx, \
-	64 * (data.map.x + 1), 64 * (data.map.y + 1), "map");
+			64 * (data.map.x + 1), 64 * (data.map.y + 1), "map");
 	if (!data.mlx_win)
 		return (free_all(&data), 1);
 	if (!init_xpm(&data.pic, data.mlx))
 		return (free_all(&data), 1);
 	draw_map(data.mlx, data.mlx_win, &data);
 	mlx_hook(data.mlx_win, 17, 0, &destroy, &data);
-	mlx_hook(data.mlx_win, 2, (1L<<0), &key_press, &data);
+	mlx_hook(data.mlx_win, 2, (1L << 0), &key_press, &data);
 	mlx_loop(data.mlx);
 	free_all(&data);
 	return (0);

@@ -1,12 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_map.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chrstein <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/23 05:50:43 by chrstein          #+#    #+#             */
+/*   Updated: 2024/02/23 05:51:23 by chrstein         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/so_long.h"
 
-void	draw_P_n_C(void *mlx_ptr, void *win_ptr, t_data *data)
+void	draw_p_n_c(void *mlx_ptr, void *win_ptr, t_data *data)
 {
 	int	x;
 	int	y;
-	int	tile_size;
 
-	tile_size = 64;
 	y = -1;
 	while (++y <= data->map.y)
 	{
@@ -14,24 +24,25 @@ void	draw_P_n_C(void *mlx_ptr, void *win_ptr, t_data *data)
 		while (++x <= data->map.x)
 		{
 			if (data->map.map[y][x] == 'P')
-				mlx_put_image_to_window(mlx_ptr, win_ptr, data->pic.player, x * tile_size + 7, y * tile_size + 7);
+				mlx_put_image_to_window(mlx_ptr, win_ptr, data->pic.player, \
+				x * 64 + 7, y * 64 + 7);
 			else if (data->map.map[y][x] == 'C' && (x + y) % 2)
-				mlx_put_image_to_window(mlx_ptr, win_ptr, data->pic.collect1, x * tile_size, y * tile_size);
+				mlx_put_image_to_window(mlx_ptr, win_ptr, data->pic.collect1, \
+				x * 64, y * 64);
 			else if (data->map.map[y][x] == 'C')
-				mlx_put_image_to_window(mlx_ptr, win_ptr, data->pic.collect2, x * tile_size, y * tile_size);
+				mlx_put_image_to_window(mlx_ptr, win_ptr, data->pic.collect2, \
+				x * 64, y * 64);
 		}
 	}
 	if (!data->count_move)
-		data->map.map[data->map.P_y][data->map.P_x] = '0';
+		data->map.map[data->map.p_y][data->map.p_x] = '0';
 }
 
 void	draw_map(void *mlx_ptr, void *win_ptr, t_data *data)
 {
 	int	x;
 	int	y;
-	int	tile_size;
 
-	tile_size = 64;
 	y = -1;
 	while (++y <= data->map.y)
 	{
@@ -39,16 +50,20 @@ void	draw_map(void *mlx_ptr, void *win_ptr, t_data *data)
 		while (++x <= data->map.x)
 		{
 			if (data->map.map[y][x] == '1')
-				mlx_put_image_to_window(mlx_ptr, win_ptr, data->pic.wall, x * tile_size, y * tile_size);
+				mlx_put_image_to_window(mlx_ptr, win_ptr, data->pic.wall, \
+				x * 64, y * 64);
 			else if (data->map.map[y][x] == 'E')
-				mlx_put_image_to_window(mlx_ptr, win_ptr, data->pic.exit, x * tile_size, y * tile_size);
+				mlx_put_image_to_window(mlx_ptr, win_ptr, data->pic.exit, \
+				x * 64, y * 64);
 			else if ((x + y) % 2)
-				mlx_put_image_to_window(mlx_ptr, win_ptr, data->pic.floor1, x * tile_size, y * tile_size);
+				mlx_put_image_to_window(mlx_ptr, win_ptr, data->pic.floor1, \
+				x * 64, y * 64);
 			else
-				mlx_put_image_to_window(mlx_ptr, win_ptr, data->pic.floor2, x * tile_size, y * tile_size);
+				mlx_put_image_to_window(mlx_ptr, win_ptr, data->pic.floor2, \
+				x * 64, y * 64);
 		}
 	}
-	draw_P_n_C(data->mlx, data->mlx_win, data);
+	draw_p_n_c(data->mlx, data->mlx_win, data);
 }
 
 int	init_xpm(t_pic *pic, void *mlx_ptr)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_win.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chrstein <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/23 05:50:31 by chrstein          #+#    #+#             */
+/*   Updated: 2024/02/23 05:50:32 by chrstein         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/so_long.h"
 
 int	rec_check(t_map *cpy, int y, int x)
@@ -30,7 +42,7 @@ int	check_win(t_map cpy)
 	int	bool;
 
 	cpy.map = ft_split(cpy.one_line_map, '\n');
-	bool = rec_check(&cpy, cpy.P_y, cpy.P_x);
+	bool = rec_check(&cpy, cpy.p_y, cpy.p_x);
 	ft_free_strings(cpy.map);
 	if (!bool)
 		return (ft_printf("Error\nMap not winnable\n"), 0);

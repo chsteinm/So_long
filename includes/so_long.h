@@ -59,8 +59,8 @@ typedef struct s_map
 	int					fd;
 	char				*one_line_map;
 	char				**map;
-	int					P_x;
-	int					P_y;
+	int					p_x;
+	int					p_y;
 }					t_map;
 
 typedef struct s_data
@@ -72,11 +72,11 @@ typedef struct s_data
 	size_t	count_move;
 }					t_data;
 
-int	parse(t_map *map);
-int	check_win(t_map cpy);
-int	init_xpm(t_pic *pic, void *mlx_ptr);
+int		parse(t_map *map);
+int		check_win(t_map cpy);
+int		init_xpm(t_pic *pic, void *mlx_ptr);
 void	draw_map(void *mlx_ptr, void *win_ptr, t_data *data);
 void	move(t_map *map, t_data *data, int new_x, int new_y);
-int	destroy(t_data *data);
+int		destroy(t_data *data);
 
 #endif
