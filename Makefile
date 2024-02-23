@@ -4,7 +4,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 MLXFLAGS = -L ./minilibx-linux -lmlx -lXext -lX11
 PATH_SRCS = ./srcs/
-SRCS = main.c parse.c get_next_line.c check_win.c
+SRCS = main.c parse.c get_next_line.c check_win.c init_map.c move.c
 OBJ = $(addprefix $(BUILD_DIR)/,$(SRCS:.c=.o))
 SRCS_BONUS = 
 OBJ_BONUS = $(addprefix $(BUILD_DIR)/,$(SRCS_BONUS:.c=.o))

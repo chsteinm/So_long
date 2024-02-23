@@ -24,13 +24,27 @@
 # include <stdio.h>
 # include <string.h>
 
+# define W 119
+# define S 115
+# define A 97
+# define D 100
+# define ESC 65307
+# define FLOOR1 "Ressources/Pics/floor1.xpm"
+# define FLOOR2 "Ressources/Pics/floor2.xpm"
+# define WALL "Ressources/Pics/wall.xpm"
+# define PLAYER "Ressources/Pics/player.xpm"
+# define COLLECT1 "Ressources/Pics/collect1.xpm"
+# define COLLECT2 "Ressources/Pics/collect2.xpm"
+# define EXIT "Ressources/Pics/exit.xpm"
+
 typedef struct s_pic
 {
 	void	*wall;
 	void	*floor1;
 	void	*floor2;
 	void	*player;
-	void	*collect;
+	void	*collect1;
+	void	*collect2;
 	void	*exit;
 	int		img_width;
 	int		img_height;
@@ -45,8 +59,8 @@ typedef struct s_map
 	int					fd;
 	char				*one_line_map;
 	char				**map;
-	size_t				P_x;
-	size_t				P_y;
+	int					P_x;
+	int					P_y;
 }					t_map;
 
 typedef struct s_data
@@ -55,10 +69,16 @@ typedef struct s_data
 	void	*mlx;
 	void	*mlx_win;
 	t_pic	pic;
+	size_t	count_move;
 }					t_data;
 
 int	parse(t_map *map);
 int	check_win(t_map cpy);
 void	draw_map(void *mlx_ptr, void *win_ptr, t_data *data);
+int	init_xpm(t_pic *pic, void *mlx_ptr);
+void	move_a(t_map *map, t_data *data);
+void	move_d(t_map *map, t_data *data);
+void	move_s(t_map *map, t_data *data);
+void	move_w(t_map *map, t_data *data);
 
 #endif

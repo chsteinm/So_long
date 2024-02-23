@@ -1,18 +1,7 @@
 /* XPM */
-static char *bbe345b758694234d184e6aa41e2c8859fpUDl9oAvY8Utxz[] = {
-/* columns rows colors chars-per-pixel */
-"64 64 8 1 ",
-"  c #DBC8FF",
-". c #DCCAFF",
-"X c #DDCCFF",
-"o c #E1D0FF",
-"O c #E0CFFF",
-"+ c #DDCBFF",
-"@ c #DCC9FF",
-"# c #DBC9FF",
-/* pixels */
-"                  .XoO+.                                        ",
-"                 @#                                             ",
+static char * floor2_xpm[] = {
+"64 64 1 1",
+" 	c #F5EBFF",
 "                                                                ",
 "                                                                ",
 "                                                                ",
@@ -74,5 +63,6 @@ static char *bbe345b758694234d184e6aa41e2c8859fpUDl9oAvY8Utxz[] = {
 "                                                                ",
 "                                                                ",
 "                                                                ",
-"                                                                "
-};
+"                                                                ",
+"                                                                ",
+"                                                                "};
