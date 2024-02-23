@@ -21,6 +21,8 @@ void	draw_P_n_C(void *mlx_ptr, void *win_ptr, t_data *data)
 				mlx_put_image_to_window(mlx_ptr, win_ptr, data->pic.collect2, x * tile_size, y * tile_size);
 		}
 	}
+	if (!data->count_move)
+		data->map.map[data->map.P_y][data->map.P_x] = '0';
 }
 
 void	draw_map(void *mlx_ptr, void *win_ptr, t_data *data)

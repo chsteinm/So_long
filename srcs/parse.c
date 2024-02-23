@@ -12,37 +12,6 @@
 
 #include "../includes/so_long.h"
 
-int	check_nbrs(t_map *map);
-
-int	check_rectangle(t_map *map)
-{
-	int	i;
-
-	map->x = ft_strlen(map->map[0]) - 1;
-	map->y = 0;
-	while (map->map[++map->y])
-		if (ft_strlen(map->map[map->y]) - 1 != (size_t)map->x)
-			return (ft_printf("Map not rectangular\n"), 0);
-	map->y--;
-	i = -1;
-	while (map->map[0][++i])
-		if (map->map[0][i] != '1')
-			return (ft_printf("Map not surrounded by walls\n"), 0);
-	i = -1;
-	while (map->map[0][++i])
-		if (map->map[map->y][i] != '1')
-			return (ft_printf("Map not surrounded by walls\n"), 0);
-	i = -1;
-	while (map->map[++i])
-		if (map->map[i][0] != '1')
-			return (ft_printf("Map not surrounded by walls\n"), 0);
-	i = -1;
-	while (map->map[++i])
-		if (map->map[i][map->x] != '1')
-			return (ft_printf("Map not surrounded by walls\n"), 0);
-	return (check_nbrs(map));
-}
-
 int	check_valid_char(char c)
 {
 	if (c != 'P' && \
@@ -82,6 +51,35 @@ int	check_nbrs(t_map *map)
 	return (check_win(*map));
 }
 
+int	check_rectangle(t_map *map)
+{
+	int	i;
+
+	map->x = ft_strlen(map->map[0]) - 1;
+	map->y = 0;
+	while (map->map[++map->y])
+		if (ft_strlen(map->map[map->y]) - 1 != (size_t)map->x)
+			return (ft_printf("Map not rectangular\n"), 0);
+	map->y--;
+	i = -1;
+	while (map->map[0][++i])
+		if (map->map[0][i] != '1')
+			return (ft_printf("Map not surrounded by walls\n"), 0);
+	i = -1;
+	while (map->map[0][++i])
+		if (map->map[map->y][i] != '1')
+			return (ft_printf("Map not surrounded by walls\n"), 0);
+	i = -1;
+	while (map->map[++i])
+		if (map->map[i][0] != '1')
+			return (ft_printf("Map not surrounded by walls\n"), 0);
+	i = -1;
+	while (map->map[++i])
+		if (map->map[i][map->x] != '1')
+			return (ft_printf("Map not surrounded by walls\n"), 0);
+	return (check_nbrs(map));
+}
+
 void	fill_P_pos(t_map *map)
 {
 	map->P_y = 0;
@@ -113,6 +111,8 @@ int	parse(t_map *map)
 		free(tmp_ptr);
 		free(next_line);
 	}
+	if (ft_strnstr(map->one_line_map, "\n\n", ft_strlen(map->one_line_map)))
+		return (ft_printf("Too much \\n\n"), 0);
 	close(map->fd);
 	map->map = ft_split(map->one_line_map, '\n');
 	fill_P_pos(map);

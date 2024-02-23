@@ -76,9 +76,10 @@ int	parse(t_map *map);
 int	check_win(t_map cpy);
 void	draw_map(void *mlx_ptr, void *win_ptr, t_data *data);
 int	init_xpm(t_pic *pic, void *mlx_ptr);
-void	move_a(t_map *map, t_data *data);
-void	move_d(t_map *map, t_data *data);
-void	move_s(t_map *map, t_data *data);
-void	move_w(t_map *map, t_data *data);
+void	move_a(void *mlx_ptr, void *win_ptr, t_map *map, t_data *data);
+void	move_d(void *mlx_ptr, void *win_ptr, t_map *map, t_data *data);
+void	move_s(void *mlx_ptr, void *win_ptr, t_map *map, t_data *data);
+void	move_w(void *mlx_ptr, void *win_ptr, t_map *map, t_data *data);
+int	destroy(t_data *data);
 
 #endif

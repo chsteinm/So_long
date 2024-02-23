@@ -16,15 +16,24 @@ void	free_all(t_data *data)
 {
 	free(data->map.one_line_map);
 	ft_free_strings(data->map.map);
-	mlx_destroy_image(data->mlx, data->pic.wall);
-	mlx_destroy_image(data->mlx, data->pic.floor1);
-	mlx_destroy_image(data->mlx, data->pic.floor2);
-	mlx_destroy_image(data->mlx, data->pic.exit);
-	mlx_destroy_image(data->mlx, data->pic.player);
-	mlx_destroy_image(data->mlx, data->pic.collect1);
+	if (data->pic.wall)
+		mlx_destroy_image(data->mlx, data->pic.wall);
+	if (data->pic.floor1)
+		mlx_destroy_image(data->mlx, data->pic.floor1);
+	if (data->pic.floor2)
+		mlx_destroy_image(data->mlx, data->pic.floor2);
+	if (data->pic.exit)
+		mlx_destroy_image(data->mlx, data->pic.exit);
+	if (data->pic.player)
+		mlx_destroy_image(data->mlx, data->pic.player);
+	if (data->pic.collect1)
+		mlx_destroy_image(data->mlx, data->pic.collect1);
+	if (data->pic.collect2)
 	mlx_destroy_image(data->mlx, data->pic.collect2);
-	mlx_destroy_window(data->mlx, data->mlx_win);
-	mlx_destroy_display(data->mlx);
+	if (data->mlx_win)
+		mlx_destroy_window(data->mlx, data->mlx_win);
+	if (data->mlx)
+		mlx_destroy_display(data->mlx);
 	free(data->mlx);
 }
 
@@ -55,13 +64,13 @@ int	key_press(int key_code, t_data *data)
 	if (key_code == ESC)
 		return (destroy(data));
 	else if (key_code == A)
-		move_a(&data->map, data);
+		move_a(data->mlx, data->mlx_win, &data->map, data);
 	else if (key_code == D)
-		move_d(&data->map, data);
+		move_d(data->mlx, data->mlx_win, &data->map, data);
 	else if (key_code == S)
-		move_s(&data->map, data);
+		move_s(data->mlx, data->mlx_win, &data->map, data);
 	else if (key_code == W)
-		move_w(&data->map, data);
+		move_w(data->mlx, data->mlx_win, &data->map, data);
 	return (1);
 }
 
@@ -75,7 +84,7 @@ int	main(int argc, char **argv)
 	if (!data.mlx)
 		return (free_all(&data), 1);
 	data.mlx_win = mlx_new_window(data.mlx, \
-	64 * (1 + data.map.x), 64 * (1 + data.map.y), "m");
+	64 * (1 + data.map.x), 64 * (1 + data.map.y), "map");
 	if (!data.mlx_win)
 		return (free_all(&data), 1);
 	if (!init_xpm(&data.pic, data.mlx))
