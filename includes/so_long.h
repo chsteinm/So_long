@@ -74,12 +74,9 @@ typedef struct s_data
 
 int	parse(t_map *map);
 int	check_win(t_map cpy);
-void	draw_map(void *mlx_ptr, void *win_ptr, t_data *data);
 int	init_xpm(t_pic *pic, void *mlx_ptr);
-void	move_a(void *mlx_ptr, void *win_ptr, t_map *map, t_data *data);
-void	move_d(void *mlx_ptr, void *win_ptr, t_map *map, t_data *data);
-void	move_s(void *mlx_ptr, void *win_ptr, t_map *map, t_data *data);
-void	move_w(void *mlx_ptr, void *win_ptr, t_map *map, t_data *data);
+void	draw_map(void *mlx_ptr, void *win_ptr, t_data *data);
+void	move(t_map *map, t_data *data, int new_x, int new_y);
 int	destroy(t_data *data);
 
 #endif

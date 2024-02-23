@@ -1,7 +1,7 @@
 NAME = so_long
 NAME_BONUS = bonus
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 # -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 MLXFLAGS = -L ./minilibx-linux -lmlx -lXext -lX11
 PATH_SRCS = ./srcs/
 SRCS = main.c parse.c get_next_line.c check_win.c init_map.c move.c
@@ -32,6 +32,9 @@ $(BUILD_DIR)/%.o: $(PATH_SRCS)%.c Makefile $(LIBFT)
 $(LIBFT): FORCE
 	@make --no-print-directory -C includes/libft bonus
 
+norm :
+	norminette ./srcs
+
 FORCE :
 
 clean:
@@ -45,4 +48,4 @@ fclean: clean
 re : fclean
 	@make --no-print-directory
 
-.PHONY: all clean fclean re bonus FORCE
+.PHONY: all clean fclean re bonus FORCE norm

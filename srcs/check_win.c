@@ -33,6 +33,6 @@ int	check_win(t_map cpy)
 	bool = rec_check(&cpy, cpy.P_y, cpy.P_x);
 	ft_free_strings(cpy.map);
 	if (!bool)
-		return (ft_printf("Map not winnable\n"), 0);
+		return (ft_printf("Error\nMap not winnable\n"), 0);
 	return (1);
 }

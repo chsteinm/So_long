@@ -34,6 +34,8 @@ void	free_all(t_data *data)
 		mlx_destroy_window(data->mlx, data->mlx_win);
 	if (data->mlx)
 		mlx_destroy_display(data->mlx);
+	if (data->map.fd != -1)
+		close(data->map.fd);
 	free(data->mlx);
 }
 
@@ -50,7 +52,7 @@ int	set_data(t_data *data, char *path)
 	data->count_move = 0;
 	data->map.fd = open(path, O_RDONLY);
 	if (data->map.fd == -1)
-		return (ft_printf("%s: ", path), perror(""), 0);
+		return (ft_printf("Error\n%s: ", path), perror(""), 0);
 	return (1);
 }
 
@@ -64,13 +66,13 @@ int	key_press(int key_code, t_data *data)
 	if (key_code == ESC)
 		return (destroy(data));
 	else if (key_code == A)
-		move_a(data->mlx, data->mlx_win, &data->map, data);
+		move(&data->map, data, data->map.P_x - 1, data->map.P_y);
 	else if (key_code == D)
-		move_d(data->mlx, data->mlx_win, &data->map, data);
+		move(&data->map, data, data->map.P_x + 1, data->map.P_y);
 	else if (key_code == S)
-		move_s(data->mlx, data->mlx_win, &data->map, data);
+		move(&data->map, data, data->map.P_x, data->map.P_y + 1);
 	else if (key_code == W)
-		move_w(data->mlx, data->mlx_win, &data->map, data);
+		move(&data->map, data, data->map.P_x, data->map.P_y - 1);
 	return (1);
 }
 
@@ -78,13 +80,15 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	if (argc != 2 || !set_data(&data, argv[1]) || !parse(&data.map))
+	if (argc != 2 || !ft_strnstr(argv[1], ".ber", ft_strlen(argv[1])))
+		return (ft_printf("Error\narg not valide\n"), 1);
+	if (!set_data(&data, argv[1]) || !parse(&data.map))
 		return (free_all(&data), 1);
 	data.mlx = mlx_init();
 	if (!data.mlx)
 		return (free_all(&data), 1);
 	data.mlx_win = mlx_new_window(data.mlx, \
-	64 * (1 + data.map.x), 64 * (1 + data.map.y), "map");
+	64 * (data.map.x + 1), 64 * (data.map.y + 1), "map");
 	if (!data.mlx_win)
 		return (free_all(&data), 1);
 	if (!init_xpm(&data.pic, data.mlx))
