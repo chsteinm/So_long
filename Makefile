@@ -1,28 +1,19 @@
 NAME = so_long
-NAME_BONUS = bonus
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror #-g3 -fsanitize=address
 MLXFLAGS = -L ./minilibx-linux -lmlx -lXext -lX11
 PATH_SRCS = ./srcs/
 SRCS = main.c parse.c get_next_line.c check_win.c init_map.c move.c
 OBJ = $(addprefix $(BUILD_DIR)/,$(SRCS:.c=.o))
-SRCS_BONUS = 
-OBJ_BONUS = $(addprefix $(BUILD_DIR)/,$(SRCS_BONUS:.c=.o))
 BUILD_DIR = .build
 LIBFT = ./includes/libft/libft.a
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) mlx
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLXFLAGS) -o $@
 	@echo "\ncompile done!\n"
-	@echo 'Tape for example "./so_long Ressources/Maps/\n"
-
-bonus: all $(NAME_BONUS)
-
-$(NAME_BONUS): $(OBJ_BONUS)
-	@$(CC) $(CFLAGS) $(OBJ_BONUS) $(LIBFT) -o $@
-	#@echo '\nchecker is ready for use too!'"\n"
+	@echo 'Tape for example "./so_long Ressources/Maps/classic.ber"'"\n"
 
 $(BUILD_DIR)/%.o: $(PATH_SRCS)%.c Makefile $(LIBFT)
 	@mkdir -p $(BUILD_DIR)
@@ -31,7 +22,10 @@ $(BUILD_DIR)/%.o: $(PATH_SRCS)%.c Makefile $(LIBFT)
 -include $(OBJ:.o=.d) $(OBJ_BONUS:.o=.d)
 
 $(LIBFT): FORCE
-	@make --no-print-directory -C includes/libft bonus
+	@make --no-print-directory -C ./includes/libft bonus
+
+mlx :
+	@make --no-print-directory -C ./minilibx-linux
 
 norm :
 	norminette ./srcs ./includes
@@ -40,6 +34,7 @@ FORCE :
 
 clean:
 	@make --no-print-directory -C ./includes/libft clean
+	@make --no-print-directory -C ./minilibx-linux clean
 	@rm -rf $(BUILD_DIR)
 
 fclean: clean
@@ -49,4 +44,4 @@ fclean: clean
 re : fclean
 	@make --no-print-directory
 
-.PHONY: all clean fclean re bonus FORCE norm
+.PHONY: all clean fclean re FORCE norm
