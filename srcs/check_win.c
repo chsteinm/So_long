@@ -42,6 +42,8 @@ int	check_win(t_map cpy)
 	int	bool;
 
 	cpy.map = ft_split(cpy.one_line_map, '\n');
+	if (!cpy.map)
+		return (ft_printf("Error\nMalloc failed\n"), 0);
 	bool = rec_check(&cpy, cpy.p_y, cpy.p_x);
 	ft_free_strings(cpy.map);
 	if (!bool)

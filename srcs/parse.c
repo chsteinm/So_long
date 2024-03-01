@@ -90,9 +90,9 @@ int	fill_p_pos(t_map *map)
 		map->p_x = 0;
 		while (map->map[map->p_y][++map->p_x])
 			if (map->map[map->p_y][map->p_x] == 'P')
-				break ;
+				return (1);
 	}
-	return (1);
+	return (0);
 }
 
 int	parse(t_map *map)
@@ -113,6 +113,8 @@ int	parse(t_map *map)
 		map->one_line_map = ft_strjoin(tmp_ptr, next_line);
 		free(tmp_ptr);
 		free(next_line);
+		if (!map->one_line_map)
+			return (ft_printf("Error\nMalloc failed\n"), 0);
 	}
 	if (ft_strnstr(map->one_line_map, "\n\n", ft_strlen(map->one_line_map)))
 		return (ft_printf("Error\nToo much \\n\n"), 0);
