@@ -80,7 +80,7 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	if (argc != 2 || !ft_strnstr(argv[1], ".ber", ft_strlen(argv[1])))
+	if (argc != 2 || !ft_rstrnstr(argv[1], ".ber", 4))
 		return (ft_printf("Error\narg not valide\n"), 1);
 	if (!set_data(&data, argv[1]) || !parse(&data.map))
 		return (free_all(&data), 1);

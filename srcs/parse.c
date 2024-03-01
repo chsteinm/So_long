@@ -92,7 +92,7 @@ int	fill_p_pos(t_map *map)
 			if (map->map[map->p_y][map->p_x] == 'P')
 				return (1);
 	}
-	return (0);
+	return (ft_printf("Error\nNo Player\n"), 0);
 }
 
 int	parse(t_map *map)
