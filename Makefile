@@ -7,15 +7,16 @@ SRCS = main.c parse.c get_next_line.c check_win.c init_map.c move.c
 OBJ = $(addprefix $(BUILD_DIR)/,$(SRCS:.c=.o))
 BUILD_DIR = .build
 LIBFT = ./includes/libft/libft.a
+MLX = ./minilibx-linux/libmlx.a ./minilibx-linux/libmlx_Linux.a
 
 all: $(NAME)
 
-$(NAME): $(OBJ) mlx
+$(NAME): $(OBJ) $(LIBFT) $(MLX)
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLXFLAGS) -o $@
 	@echo "\ncompile done!\n"
 	@echo 'Tape for example "./so_long Ressources/Maps/classic.ber"'"\n"
 
-$(BUILD_DIR)/%.o: $(PATH_SRCS)%.c Makefile $(LIBFT)
+$(BUILD_DIR)/%.o: $(PATH_SRCS)%.c Makefile
 	@mkdir -p $(BUILD_DIR)
 	@$(CC) $(CFLAGS) -MMD -MP -c $< -o $@ -I ./includes
 
@@ -24,13 +25,13 @@ $(BUILD_DIR)/%.o: $(PATH_SRCS)%.c Makefile $(LIBFT)
 $(LIBFT): FORCE
 	@make --no-print-directory -C ./includes/libft bonus
 
-mlx :
+$(MLX): FORCE
 	@make --no-print-directory -C ./minilibx-linux
 
-norm :
+norm:
 	norminette ./srcs ./includes
 
-FORCE :
+FORCE:
 
 clean:
 	@make --no-print-directory -C ./includes/libft clean
@@ -41,7 +42,7 @@ fclean: clean
 	@make --no-print-directory -C ./includes/libft fclean
 	@rm -rf $(NAME) $(NAME_BONUS)
 
-re : fclean
+re: fclean
 	@make --no-print-directory
 
 .PHONY: all clean fclean re FORCE norm
